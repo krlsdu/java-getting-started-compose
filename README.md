@@ -36,6 +36,20 @@ If you're going to use a database, ensure you have a local `.env` file that read
 DATABASE_URL=postgres://localhost:5432/java_database_name
 ```
 
+## Pgadmin4 with docker-compose
+
+```sh
+$ cd java-getting-started
+$ docker-compose up -d pgadmin
+```
+
+Your pgadmin4 should now be running on [localhost:5050](http://localhost:5050/).
+```
+login
+email address: postgres@pgadmin.org
+password: admin
+```
+
 ## Deploying to Heroku
 
 ```sh
