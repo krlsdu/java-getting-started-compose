@@ -1,0 +1,31 @@
+version: '3'
+services:
+  maven:
+    working_dir: /usr/src/app
+    image: maven
+    volumes:
+      - .:/usr/src/app
+      - .m2:/root/.m2
+    command: mvn clean install
+
+  db:
+    env_file: .env
+    image: postgres
+
+  web:
+    image: openjdk:8-jdk-alpine
+    env_file: .env
+    working_dir: /usr/src/myapp/
+    volumes:  
+      - $PWD/.m2/repository/com/example/java-getting-started/1.0/:/usr/src/myapp/
+    command: ["java","-jar","java-getting-started-1.0.jar"]
+    ports: 
+      - 5000:5000
+    depends_on:
+      - db
+
+  pgadmin:
+    image: fenglc/pgadmin4
+    env_file: .env
+    ports:
+      - 5050:5050
